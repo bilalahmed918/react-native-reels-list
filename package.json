@@ -1,0 +1,41 @@
+{
+  "name": "react-native-reels-list",
+  "version": "1.0.0",
+  "description": "Reels list component for React Native",
+  "main": "index.ts",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Simranjits11/react-native-reels-list.git"
+  },
+  "author": "Simranjit Singh",
+  "license": "ISC",
+  "dependencies": {
+    "expo-av": "~14.0.5",
+    "@react-native-community/slider": "4.5.2",
+    "@react-navigation/native": "^6.0.2",
+    "react-native-gesture-handler": "~2.16.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3"
+  },
+  "bugs": {
+    "url": "https://github.com/Simranjits11/react-native-reels-list/issues"
+  },
+  "homepage": "https://github.com/Simranjits11/react-native-reels-list#readme",
+  "keywords": [
+    "reels",
+    "instagram-reels",
+    "react-native-instagram-reels",
+    "expo-instagram-reel",
+    "youtube-shorts",
+    "react-native-youtube-shorts",
+    "expo-youtube-shorts",
+    "video-list",
+    "reels-list"
+  ]
+}
