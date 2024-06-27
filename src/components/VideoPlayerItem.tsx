@@ -36,6 +36,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
       useNativeControls,
       overlayComponent,
       holdToPause,
+      bottomOffset = 0,
     },
     parentRef
   ) => {
@@ -160,7 +161,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
     return (
       <View style={[styles.container, { height: videoHeight }]}>
         {overlayComponent}
-        <View style={styles.bottomContainer}>
+        <View style={[styles.bottomContainer, { bottom: bottomOffset }]}>
           {showLoadingIndicator &&
             (!status?.isLoaded ||
               (status?.isBuffering && !status?.isPlaying)) && (
@@ -242,7 +243,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     zIndex: 2,
-    bottom: 0,
   },
   avatar: {
     height: 34,

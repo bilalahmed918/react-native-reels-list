@@ -29,6 +29,7 @@ export type ReelsListProps = {
     index: number;
   }) => ReactNode;
   holdToPause?: boolean;
+  bottomOffset?: number;
 } & Omit<FlatListProps<VideoItemType>, "renderItem" | "data">;
 
 export type VideoPlayerHandler = {
@@ -49,6 +50,7 @@ export type VideoPlayerItemProps = {
   useNativeControls?: boolean;
   overlayComponent?: ReactNode;
   holdToPause?: boolean;
+  bottomOffset?: number;
 };
 
 export type VideoControlsProps = {

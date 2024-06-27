@@ -26,6 +26,7 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
       useNativeControls,
       overlayComponent,
       holdToPause,
+      bottomOffset,
       ...props
     },
     refs
@@ -54,6 +55,7 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
               overlayComponent ? overlayComponent({ item, index }) : undefined
             }
             holdToPause={holdToPause}
+            bottomOffset={bottomOffset}
           />
         );
       },
@@ -67,6 +69,7 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
         useNativeControls,
         overlayComponent,
         holdToPause,
+        bottomOffset,
       ]
     );
 
