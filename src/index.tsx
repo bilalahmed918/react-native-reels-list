@@ -50,12 +50,24 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
             showSeekbar={showSeekbar}
             showLoadingIndicator={showLoadingIndicator}
             useNativeControls={useNativeControls}
-            overlayComponent={overlayComponent}
+            overlayComponent={
+              overlayComponent ? overlayComponent({ item, index }) : undefined
+            }
             holdToPause={holdToPause}
           />
         );
       },
-      [videoHeight, currentVideoIndex, isMuted, handleMuteToggle]
+      [
+        videoHeight,
+        currentVideoIndex,
+        isMuted,
+        handleMuteToggle,
+        showSeekbar,
+        showLoadingIndicator,
+        useNativeControls,
+        overlayComponent,
+        holdToPause,
+      ]
     );
 
     const handleUnloadVideos = useCallback(() => {
@@ -105,6 +117,7 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
   }
 );
 
+ReelsList.displayName = "ReelsList";
 export default ReelsList;
 
 const styles = StyleSheet.create({

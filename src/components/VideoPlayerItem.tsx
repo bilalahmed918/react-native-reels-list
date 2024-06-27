@@ -159,6 +159,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
 
     return (
       <View style={[styles.container, { height: videoHeight }]}>
+        {overlayComponent}
         <View style={styles.bottomContainer}>
           {showLoadingIndicator &&
             (!status?.isLoaded ||
@@ -183,7 +184,6 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
         </View>
         <GestureDetector gesture={composed}>
           <View style={styles.videoContainer}>
-            <View style={styles.overlayContainer}>{overlayComponent}</View>
             {videoNotPlayable && (
               <Image
                 source={{ uri: videoDetails?.thumbnail }}
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     width: "100%",
     position: "absolute",
-    zIndex: 3,
+    zIndex: 2,
     bottom: 0,
   },
   avatar: {
@@ -256,12 +256,6 @@ const styles = StyleSheet.create({
   video: {
     height: "100%",
     width: "100%",
-  },
-  overlayContainer: {
-    height: "100%",
-    width: "100%",
-    position: "absolute",
-    zIndex: 2,
   },
   bufferingIndicator: {
     alignSelf: "flex-end",

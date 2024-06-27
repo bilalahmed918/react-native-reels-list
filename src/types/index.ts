@@ -6,6 +6,7 @@ export type VideoItemType = {
   source: string;
   thumbnail: string;
   key: string;
+  [key: string]: any;
 };
 
 export type ReelsListProps = {
@@ -20,7 +21,13 @@ export type ReelsListProps = {
   showSeekbar?: boolean;
   showLoadingIndicator?: boolean;
   useNativeControls?: boolean;
-  overlayComponent?: ReactNode;
+  overlayComponent?: ({
+    item,
+    index,
+  }: {
+    item: VideoItemType;
+    index: number;
+  }) => ReactNode;
   holdToPause?: boolean;
 } & Omit<FlatListProps<VideoItemType>, "renderItem" | "data">;
 
