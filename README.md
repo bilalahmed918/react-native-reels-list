@@ -165,9 +165,9 @@ The `ReelsList` component accepts the following props:
 - `bottomOffset` (number, optional): Offset from the bottom of the screen for the default seekbar and buffering indicator. Default is `0`.
 - `overlayComponent` (({
   item,
-  index,
+  index
   })=> ReactNode, optional): Function to render a custom overlay component for each video.
-- `onCurrentPlaybackStatusUpdate` ((status: [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus), index: number) => void, optional): A function to be called regularly with the [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus) of the currently playing video. Helps in tracking the playback status of the video for custom UI updates. incase you want your custom seekbar, buffering indicator etc.
+- `onCurrentPlaybackStatusUpdate` ((status: [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus)) => void, optional): A function to be called regularly with the [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus) of the currently playing video. Helps in tracking the playback status of the video for custom UI updates. incase you want your custom seekbar, buffering indicator etc.
 - Additionally, the component accepts all other FlatList props for added customizations.
 
 ## Contributing
