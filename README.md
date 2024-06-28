@@ -7,10 +7,11 @@
 - Optimized video list for smooth performance
 - Customizable video height
 - Tap to mute functionality
+- Hold to pause functionality
 - Seekbar support
 - Loading indicator
-- Overlay components
-- Hold to pause functionality
+- Custom overlay components
+- Playback status updates
 
 ## Installation
 
@@ -26,6 +27,8 @@ or via yarn:
 yarn add react-native-reels-list
 ```
 
+Note: This package uses `expo-av` for video playback, expo-av is required to be installed in your project. Follow [these installation instructions.](https://docs.expo.dev/versions/latest/sdk/av/#installation).
+
 ## Usage
 
 Here's an example of how to use the `ReelsList` component in your React Native application:
@@ -36,6 +39,7 @@ import { VIEWPORT_HEIGHT } from "@/constants";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import ReelsList, { VideoItemType } from "react-native-reels-list";
 import { MuteContext } from "@/context";
+import { AVPlaybackStatus } from "expo-av";
 
 const videos = [
   { key: '1', uri: 'https://example.com/video1.mp4', thumbnail: 'https://example.com/thumbnail1.jpg', ...otherProperties},
@@ -47,6 +51,7 @@ const App = () => {
   const tabBarHeight = useBottomTabBarHeight();
   const { isMuted, handleMuteToggle } = useContext(MuteContext);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [status, setStatus] = useState<AVPlaybackStatus | null>(null);
 
   const videoHeight = VIEWPORT_HEIGHT - tabBarHeight;
 
@@ -55,9 +60,11 @@ const App = () => {
       viewableItems: ViewToken<VideoItemType>[];
       changed: ViewToken<VideoItemType>[];
     }) => {
+      // Update the current video index when the viewable items change
       setCurrentVideoIndex(
         (prev) => info.changed.find((item) => item.isViewable)?.index ?? prev
       );
+      // If required, add your custom logic here
     },
     []
   );
@@ -74,7 +81,7 @@ const App = () => {
   );
 
    const overlayComponent = useCallback(
-    ({ item }: { item: VideoItemType }) => (
+    ({ item }: { item: VideoItemType, index:number }) => (
       // Custom overlay component for each video item. Add your custom UI with position: 'absolute' here.
       <View style={styles.overlay}>
         <Link href={`/profile/${item.username}`} asChild>
@@ -100,6 +107,7 @@ const App = () => {
       showLoadingIndicator={true}
       holdToPause={true}
       overlayComponent={overlayComponent}
+      onCurrentPlaybackStatusUpdate={(status) => setStatus(status)}
       refreshing={refreshing}
       onRefresh={() => {
         // Refresh the video list
@@ -139,16 +147,25 @@ The `ReelsList` component accepts the following props:
 - `initialVideoIndex` (number, optional): The initial video index to start playback from.
 - `handleGetItemLayout` (function): Function to get the layout of each item in the list.
 - `onViewableItemsChanged` (function): Callback function when viewable items change.
-- `videos` (array): Array of video items to be displayed in the list.
+- `videos` (Array<{
+  key: string,
+  uri: string,
+  thumbnail: string,
+  ...otherProperties
+  }>): Array of video items to be displayed in the list.
 - `videoHeight` (number): Height of each video in the list.
 - `isMuted` (boolean, optional): Flag to mute/unmute videos. Default is `false`.
 - `handleMuteToggle` (function, optional): Callback function to handle mute toggle.
 - `showSeekbar` (boolean, optional): Flag to show/hide the seekbar. Default is `false`.
 - `showLoadingIndicator` (boolean, optional): Flag to show/hide the loading indicator. Default is `false`.
 - `useNativeControls` (boolean, optional): Flag to use native video controls. Default is `false`.
-- `overlayComponent` (function, optional): Function to render a custom overlay component for each video.
 - `holdToPause` (boolean, optional): Flag to enable hold-to-pause functionality. Default is `false`.
-- `bottomOffset` (number, optional): Offset from the bottom of the screen for additional UI flexibility.
+- `bottomOffset` (number, optional): Offset from the bottom of the screen for the default seekbar and buffering indicator. Default is `0`.
+- `overlayComponent` (({
+  item,
+  index,
+  })=> ReactNode, optional): Function to render a custom overlay component for each video.
+- `onCurrentPlaybackStatusUpdate` ((status: [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus), index: number) => void, optional): A function to be called regularly with the [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus) of the currently playing video. Helps in tracking the playback status of the video for custom UI updates. incase you want your custom seekbar, buffering indicator etc.
 - Additionally, the component accepts all other FlatList props for added customizations.
 
 ## Contributing

@@ -34,9 +34,10 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
       showSeekbar,
       showLoadingIndicator,
       useNativeControls,
-      overlayComponent,
       holdToPause,
       bottomOffset = 0,
+      overlayComponent,
+      onCurrentPlaybackStatusUpdate,
     },
     parentRef
   ) => {
@@ -160,7 +161,7 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
 
     return (
       <View style={[styles.container, { height: videoHeight }]}>
-        {overlayComponent}
+        {overlayComponent?.({ item: videoDetails, index })}
         <View style={[styles.bottomContainer, { bottom: bottomOffset }]}>
           {showLoadingIndicator &&
             (!status?.isLoaded ||
@@ -202,7 +203,10 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
               posterSource={{
                 uri: videoDetails?.thumbnail,
               }}
-              onPlaybackStatusUpdate={(pbstatus) => setStatus(pbstatus)}
+              onPlaybackStatusUpdate={(pbstatus) => {
+                onCurrentPlaybackStatusUpdate?.(pbstatus);
+                setStatus(pbstatus);
+              }}
               useNativeControls={useNativeControls}
               resizeMode={ResizeMode.COVER}
               isLooping

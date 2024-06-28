@@ -9,6 +9,18 @@ export type VideoItemType = {
   [key: string]: any;
 };
 
+export type OverlayComponentType = ({
+  item,
+  index,
+}: {
+  item: VideoItemType;
+  index: number;
+}) => ReactNode;
+
+export type OnCurrentPlaybackStatusUpdateType = (
+  status: AVPlaybackStatus
+) => void;
+
 export type ReelsListProps = {
   currentVideoIndex: number;
   initialVideoIndex?: number;
@@ -21,13 +33,8 @@ export type ReelsListProps = {
   showSeekbar?: boolean;
   showLoadingIndicator?: boolean;
   useNativeControls?: boolean;
-  overlayComponent?: ({
-    item,
-    index,
-  }: {
-    item: VideoItemType;
-    index: number;
-  }) => ReactNode;
+  overlayComponent?: OverlayComponentType;
+  onCurrentPlaybackStatusUpdate?: OnCurrentPlaybackStatusUpdateType;
   holdToPause?: boolean;
   bottomOffset?: number;
 } & Omit<FlatListProps<VideoItemType>, "renderItem" | "data">;
@@ -48,7 +55,8 @@ export type VideoPlayerItemProps = {
   showSeekbar?: boolean;
   showLoadingIndicator?: boolean;
   useNativeControls?: boolean;
-  overlayComponent?: ReactNode;
+  overlayComponent?: OverlayComponentType;
+  onCurrentPlaybackStatusUpdate?: OnCurrentPlaybackStatusUpdateType;
   holdToPause?: boolean;
   bottomOffset?: number;
 };

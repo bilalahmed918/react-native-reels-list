@@ -24,9 +24,10 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
       showSeekbar,
       showLoadingIndicator,
       useNativeControls,
-      overlayComponent,
       holdToPause,
       bottomOffset,
+      overlayComponent,
+      onCurrentPlaybackStatusUpdate,
       ...props
     },
     refs
@@ -51,11 +52,10 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
             showSeekbar={showSeekbar}
             showLoadingIndicator={showLoadingIndicator}
             useNativeControls={useNativeControls}
-            overlayComponent={
-              overlayComponent ? overlayComponent({ item, index }) : undefined
-            }
             holdToPause={holdToPause}
             bottomOffset={bottomOffset}
+            overlayComponent={overlayComponent}
+            onCurrentPlaybackStatusUpdate={onCurrentPlaybackStatusUpdate}
           />
         );
       },
@@ -70,6 +70,7 @@ const ReelsList = forwardRef<(VideoPlayerHandler | null)[], ReelsListProps>(
         overlayComponent,
         holdToPause,
         bottomOffset,
+        onCurrentPlaybackStatusUpdate,
       ]
     );
 
