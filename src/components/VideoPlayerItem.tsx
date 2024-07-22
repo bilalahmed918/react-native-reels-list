@@ -161,58 +161,70 @@ const VideoPlayer = forwardRef<VideoPlayerHandler, VideoPlayerItemProps>(
 
     return (
       <View style={[styles.container, { height: videoHeight }]}>
-        {overlayComponent?.({ item: videoDetails, index })}
-        <View style={[styles.bottomContainer, { bottom: bottomOffset }]}>
-          {showLoadingIndicator &&
-            (!status?.isLoaded ||
-              (status?.isBuffering && !status?.isPlaying)) && (
-              <ActivityIndicator
-                size="small"
-                color="white"
-                style={styles.bufferingIndicator}
-              />
-            )}
-          {showSeekbar && (
-            <VideoControls
-              positionMillis={status?.positionMillis || 0}
-              durationMillis={status?.durationMillis || 0}
-              setPosition={(position: number) => {
-                if (index === currentVideoIndex) {
-                  video?.current?.setPositionAsync(position);
-                }
-              }}
-            />
-          )}
-        </View>
-        <GestureDetector gesture={composed}>
+        {Math.abs(index - currentVideoIndex) <= 2 ? (
+          <>
+            {overlayComponent?.({ item: videoDetails, index })}
+            <View style={[styles.bottomContainer, { bottom: bottomOffset }]}>
+              {showLoadingIndicator &&
+                (!status?.isLoaded ||
+                  (status?.isBuffering && !status?.isPlaying)) && (
+                  <ActivityIndicator
+                    size="small"
+                    color="white"
+                    style={styles.bufferingIndicator}
+                  />
+                )}
+              {showSeekbar && (
+                <VideoControls
+                  positionMillis={status?.positionMillis || 0}
+                  durationMillis={status?.durationMillis || 0}
+                  setPosition={(position: number) => {
+                    if (index === currentVideoIndex) {
+                      video?.current?.setPositionAsync(position);
+                    }
+                  }}
+                />
+              )}
+            </View>
+            <GestureDetector gesture={composed}>
+              <View style={styles.videoContainer}>
+                {videoNotPlayable && (
+                  <Image
+                    source={{ uri: videoDetails?.thumbnail }}
+                    style={styles.thumbnail}
+                    resizeMode="cover"
+                  />
+                )}
+                <Video
+                  ref={video}
+                  shouldPlay={false}
+                  style={styles.video}
+                  source={{
+                    uri: videoDetails.source,
+                  }}
+                  posterSource={{
+                    uri: videoDetails?.thumbnail,
+                  }}
+                  onPlaybackStatusUpdate={(pbstatus) => {
+                    onCurrentPlaybackStatusUpdate?.(pbstatus);
+                    setStatus(pbstatus);
+                  }}
+                  useNativeControls={useNativeControls}
+                  resizeMode={ResizeMode.COVER}
+                  isLooping
+                />
+              </View>
+            </GestureDetector>
+          </>
+        ) : (
           <View style={styles.videoContainer}>
-            {videoNotPlayable && (
-              <Image
-                source={{ uri: videoDetails?.thumbnail }}
-                style={styles.thumbnail}
-                resizeMode="cover"
-              />
-            )}
-            <Video
-              ref={video}
-              shouldPlay={false}
-              style={styles.video}
-              source={{
-                uri: videoDetails.source,
-              }}
-              posterSource={{
-                uri: videoDetails?.thumbnail,
-              }}
-              onPlaybackStatusUpdate={(pbstatus) => {
-                onCurrentPlaybackStatusUpdate?.(pbstatus);
-                setStatus(pbstatus);
-              }}
-              useNativeControls={useNativeControls}
-              resizeMode={ResizeMode.COVER}
-              isLooping
+            <Image
+              source={{ uri: videoDetails?.thumbnail }}
+              style={styles.thumbnail}
+              resizeMode="cover"
             />
           </View>
-        </GestureDetector>
+        )}
       </View>
     );
   }
