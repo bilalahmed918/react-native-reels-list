@@ -145,30 +145,44 @@ export default App;
 
 The `ReelsList` component accepts the following props:
 
-- `currentVideoIndex` (number): The index of the current video being played.
-- `initialVideoIndex` (number, optional): The initial video index to start playback from.
-- `handleGetItemLayout` (function): Function to get the layout of each item in the list.
-- `onViewableItemsChanged` (function): Callback function when viewable items change.
-- `videos` (Array<{
-  key: string,
-  uri: string,
-  thumbnail: string,
-  ...otherProperties
-  }>): Array of video items to be displayed in the list.
-- `videoHeight` (number): Height of each video in the list.
-- `isMuted` (boolean, optional): Flag to mute/unmute videos. Default is `false`.
-- `handleMuteToggle` (function, optional): Callback function to handle mute toggle.
-- `showSeekbar` (boolean, optional): Flag to show/hide the seekbar. Default is `false`.
-- `showLoadingIndicator` (boolean, optional): Flag to show/hide the loading indicator. Default is `false`.
-- `useNativeControls` (boolean, optional): Flag to use native video controls. Default is `false`.
-- `holdToPause` (boolean, optional): Flag to enable hold-to-pause functionality. Default is `false`.
-- `bottomOffset` (number, optional): Offset from the bottom of the screen for the default seekbar and buffering indicator. Default is `0`.
-- `overlayComponent` (({
-  item,
-  index
-  })=> ReactNode, optional): Function to render a custom overlay component for each video.
-- `onCurrentPlaybackStatusUpdate` ((status: [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus)) => void, optional): A function to be called regularly with the [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus) of the currently playing video. Helps in tracking the playback status of the video for custom UI updates. incase you want your custom seekbar, buffering indicator etc.
-- Additionally, the component accepts all other FlatList props for added customizations.
+| Prop                            | Type                                                                                                 | Description                                                                                                                                                                                                                             | Default | Required |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | -------- |
+| `currentVideoIndex`             | number                                                                                               | The index of the current video being played.                                                                                                                                                                                            | -       | Yes      |
+| `handleGetItemLayout`           | function                                                                                             | Function to get the layout of each item in the list.                                                                                                                                                                                    | -       | Yes      |
+| `onViewableItemsChanged`        | function                                                                                             | Callback function when viewable items change.                                                                                                                                                                                           | -       | Yes      |
+| `videos`                        | Array<{ key: string, uri: string, thumbnail: string, ...otherProperties }>                           | Array of video items to be displayed in the list.                                                                                                                                                                                       | -       | Yes      |
+| `videoHeight`                   | number                                                                                               | Height of each video in the list.                                                                                                                                                                                                       | -       | Yes      |
+| `isMuted`                       | boolean                                                                                              | Flag to mute/unmute videos.                                                                                                                                                                                                             | `false` | No       |
+| `handleMuteToggle`              | function                                                                                             | Callback function to handle mute toggle.                                                                                                                                                                                                | -       | No       |
+| `showSeekbar`                   | boolean                                                                                              | Flag to show/hide the seekbar.                                                                                                                                                                                                          | `false` | No       |
+| `showLoadingIndicator`          | boolean                                                                                              | Flag to show/hide the loading indicator.                                                                                                                                                                                                | `false` | No       |
+| `useNativeControls`             | boolean                                                                                              | Flag to use native video controls.                                                                                                                                                                                                      | `false` | No       |
+| `holdToPause`                   | boolean                                                                                              | Flag to enable hold-to-pause functionality.                                                                                                                                                                                             | `false` | No       |
+| `bottomOffset`                  | number                                                                                               | Offset from the bottom of the screen for the default seekbar and buffering indicator.                                                                                                                                                   | `0`     | No       |
+| `overlayComponent`              | ({ item, index }) => ReactNode                                                                       | Function to render a custom overlay component for each video.                                                                                                                                                                           | -       | No       |
+| `onCurrentPlaybackStatusUpdate` | (status: [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus)) => void | A function to be called regularly with the [AVPlaybackStatus](https://docs.expo.dev/versions/latest/sdk/av/#avplaybackstatus) of the currently playing video. Helps in tracking the playback status of the video for custom UI updates. | -       | No       |
+
+Additionally, the component accepts all other FlatList props for added customizations.
+
+## Performance Metrics
+
+| Device                               | Max CPU Usage\* | Idle CPU Usage | Avg. RAM Usage | Initial Load Time (Lazy Loading On) | Initial Load Time (Lazy Loading Off) |
+| ------------------------------------ | --------------- | -------------- | -------------- | ----------------------------------- | ------------------------------------ |
+| **Two Video Lists (Two Top Tabs)**   |                 |                |                |                                     |                                      |
+| Samsung Galaxy A22 (6 GB RAM)        | 70%             | 13%            | 650 MB         | 1-2 Seconds                         | 18 Seconds                           |
+| Samsung Galaxy S22 Ultra (12 GB RAM) | 37%             | 10%            | 770 MB         | 1-2 Seconds                         | 13 Seconds                           |
+| Samsung Galaxy A21s (4 GB RAM)       | 75%             | 18%            | 698 MB         | 4-5 Seconds                         | 30-40 Seconds                        |
+| **One Video List (Single Top Tab)**  |                 |                |                |                                     |                                      |
+| Samsung Galaxy A22 (6 GB RAM)        | 48%             | 12%            | 515 MB         | 1-2 Seconds                         | -                                    |
+| Samsung Galaxy S22 Ultra (12 GB RAM) | 32%             | 10%            | 635 MB         | 1-2 Seconds                         | -                                    |
+| Samsung Galaxy A21s (4 GB RAM)       | 71%             | 16%            | 532 MB         | 4-5 Seconds                         | -                                    |
+
+\*Note: The maximum CPU usage values represent occasional spikes and should not be a cause for concern.
+
+## Usage Tips
+
+- If you are using multiple simultaneously running video lists, load the lists lazily for improved performance.
+- On lower-end devices, if you encounter `java.lang.OutOfMemoryError`, set `android:largeHeap="true"` in the Android manifest.
 
 ## Contributing
 
