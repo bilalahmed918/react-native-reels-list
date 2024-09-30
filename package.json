@@ -1,12 +1,12 @@
 {
   "name": "react-native-reels-list",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Reels list component for React Native",
   "main": "index.ts",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Simranjits11/react-native-reels-list.git"
+    "url": "git+https://github.com/Simranjit1080/react-native-reels-list.git"
   },
   "author": "Simranjit Singh",
   "license": "ISC",
@@ -33,9 +33,9 @@
     "eslint-plugin-react-native": "^4.0.0"
   },
   "bugs": {
-    "url": "https://github.com/Simranjits11/react-native-reels-list/issues"
+    "url": "https://github.com/Simranjit1080/react-native-reels-list/issues"
   },
-  "homepage": "https://github.com/Simranjits11/react-native-reels-list#readme",
+  "homepage": "https://github.com/Simranjit1080/react-native-reels-list#readme",
   "keywords": [
     "reels",
     "instagram-reels",

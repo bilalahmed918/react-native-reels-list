@@ -2,7 +2,7 @@
 
 `react-native-reels-list` is a customizable React Native component designed to provide an intagram/tiktok like optimized video list experience. It offers a variety of features and options to ensure smooth and efficient video playback in your React Native applications.
 
-![react-native-reels-list](https://github.com/Simranjits11/react-native-reels-list/blob/master/example/Example.gif?raw=true)
+![react-native-reels-list](https://github.com/Simranjit1080/react-native-reels-list/blob/master/example/Example.gif?raw=true)
 
 ## Features
 
@@ -190,7 +190,7 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Author
 
-Developed by [Simranjit Singh](https://github.com/Simranjits11/).
+Developed by [Simranjit Singh](https://www.linkedin.com/in/simranjit-singh-1080/).
 
 ## Acknowledgments
 
