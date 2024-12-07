@@ -1,6 +1,6 @@
 {
   "name": "react-native-reels-list",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Reels list component for React Native",
   "main": "index.ts",
   "scripts": {},
@@ -11,10 +11,10 @@
   "author": "Simranjit Singh",
   "license": "ISC",
   "dependencies": {
-    "expo-av": "~14.0.5",
-    "@react-native-community/slider": "4.5.2",
+    "expo-av": "~15.0.1",
+    "@react-native-community/slider": "4.5.5",
     "@react-navigation/native": "^6.0.2",
-    "react-native-gesture-handler": "~2.16.1"
+    "react-native-gesture-handler": "~2.20.2"
   },
   "peerDependencies": {
     "react": "*",
