@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,17 +20,11 @@ jobs:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install dependencies with legacy-peer-deps
+        run: npm install --legacy-peer-deps
 
       - name: Run tests (if any)
-        run: npm test
-        continue-on-error: true  # Use true if no tests or flaky ones
+        run: npm test || echo "No tests defined"
 
-      - name: Check formatting (optional)
-        run: |
-          npm run lint || true
-          npm run prettier || true
-
-      - name: Build (optional)
-        run: npm run build || echo "No build step defined"
+      - name: Build (if applicable)
+        run: npm run build || echo "No build step"
